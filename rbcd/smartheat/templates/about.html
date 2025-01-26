@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CuraTherm</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom right, #ffffff, #800080, #000080);/* Catchy background with a gradient overlay */
+            background-size: cover;
+            color: #ecf0f1;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .nav-button {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for better readability */
+            padding: 20px;
+            margin: 20px;
+            width: 80%;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .team-member {
+            font-size: 1.8em; /* Increased font size for emphasis */
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: scale(1.1);
+            color: #3498db;
+        }
+
+        /* Get Started Button */
+        .get-started {
+            margin-top: 20px;
+        }
+
+        .get-started-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .get-started-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            text-align: center;
+            color: #ecf0f1;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <a href="{% url 'home'%}" class="nav-button">Home</a>
+            <a href="{% url 'analysis'%}" class="nav-button">Early Detect</a>
+            <a href="{% url 'about'%}" class="nav-button">About Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="overlay">
+            <h2>CuraTherm...</h2>
+            <p>
+                Our organization aims to provide solutions for early detection of breast cancer by employing an innovative and effective method using deep learning techniques. It uses infrared thermography (thermal images) in order to detect and classify the type of cancer that might be present.
+            </p>
+            <p>
+                We are a group of four young and enthusiastic engineers having a vision to minimize the fatalities caused by breast cancer. This project aims to benefit society by providing easy access for early detection and diagnosis.
+            </p>
+        </div>
+
+        <!-- Team Members Section -->
+        <div class="team">
+            <div class="team-member">Karthikeya S (NIE)</div>
+            <div class="team-member">Ganesha (NIE)</div>
+            <div class="team-member">Prajwal (MIT)</div>
+            <div class="team-member">Gowri (GSSS)</div>
+        </div>
+
+        <!-- Get Started Button -->
+        <div class="get-started">
+            <a href="{% url 'analysis'%}" class="get-started-button">Get Started</a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>About CuraTherm | CuraTherm Products | © 2023 CuraTherm</p>
+    </footer>
+
+    <script>
+        // Example script to change background color of the div on click
+        const curaThermBox = document.querySelector('.cura-therm');
+        curaThermBox.addEventListener('click', () => {
+            curaThermBox.style.background = 'linear-gradient(135deg, rgba(255, 0, 150, 0.9), rgba(255, 204, 0, 0.9))'; // Changes gradient on click
+            curaThermBox.innerText = "Detection Activated"; // Changes text as an example
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraTherm - Early Detection</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ffffff, #800080, #000080); /* White to purple to dark blue gradient */
+            color: #ffffff;
+            padding: 20px;
+            flex-direction: column; /* Allow the navigation bar to stack vertically */
+        }
+        /* Navigation Bar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            width: 100%;
+            padding: 10px 20px;
+            position: absolute; /* Fix to top */
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure it stays above other content */
+            text-align: center; /* Center the nav items */
+        }
+        nav a {
+            color: #ffffff; /* White text color */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Spacing around links */
+            margin: 0 10px; /* Spacing between links */
+            font-weight: bold; /* Make links bold */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+        nav a:hover {
+            color: #3498db; /* Change color on hover */
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
+            border-radius: 12px;
+            padding: 50px 20px;
+            text-align: center;
+            max-width: 600px; /* Increased width */
+            width: 90%; /* Adjust for responsiveness */
+            margin: 20px;
+            margin-top: 80px; /* Adjust for navigation bar height */
+        }
+        h1 {
+            font-size: 2.4em; /* Increased size */
+            margin-bottom: 20px;
+            color: #a29bfe; /* Light purple title color */
+        }
+        p {
+            font-size: 1.2em; /* Increased size */
+            margin-bottom: 30px;
+            color: #dcdde1; /* Light grey paragraph color */
+        }
+        .message {
+            margin-top: 20px;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .benign {
+            border-left: 10px solid #2ecc71; /* Green for benign */
+            color: #2ecc71;
+        }
+        .malignant {
+            border-left: 10px solid #e74c3c; /* Red for malignant */
+            color: #e74c3c;
+        }
+        .normal {
+            border-left: 10px solid #3498db; /* Blue for normal */
+            color: #3498db;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            padding: 15px 25px; /* Increased padding */
+            color: #ffffff;
+            background-color: #6c5ce7; /* Purple for label */
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        label:hover {
+            background-color: #4834d4; /* Darker purple on hover */
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 25px; /* Increased padding */
+            font-size: 1.2em; /* Increased size */
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #341f97; /* Dark blue for button */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2c2a86; /* Darker blue on hover */
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 1.3em; /* Increased size */
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+    <script>
+        const benign=document.getElementsByClassName('benign')
+        const malignant=document.getElementsByClassName('malignant')
+        const normal=document.getElementsByClassName('normal')
+        async function uploadImage() {
+            const input = document.getElementById("imageUpload").files[0];
+            if (!input) {
+                document.getElementById("result").innerText = "Please upload an image file.";
+                document.getElementById("result").style.display = 'block';
+                return;
+            }
+            const formData = new FormData();
+            formData.append("file", input);
+            try {
+                const response = await fetch("/api/upload-image", {
+                    method: "POST",
+                    body: formData,
+                });
+                const result = await response.json();
+                displayAnalysisResult(result.message);
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "Cancer is not detected.";
+                document.getElementById("result").style.display = 'block';
+            }
+        }
+
+        function displayAnalysisResult(message) {
+            const resultElement = document.getElementById("result");
+            resultElement.innerText = "Analysis Result: " + message;
+            resultElement.style.display = 'block';
+            if(message=="NORMAL"){
+                resultElement.style.color="green";
+            }
+            else if(message=="BENIGN"){
+                resultElement.style.color="blue";
+            }
+            else{
+                resultElement.style.color="red";
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'home'%}">Home</a>
+        <a href="{% url 'about' %}">About Us</a>
+    </nav>
+
+    <div class="container">
+        <h1>CuraTherm - Early Detection</h1>
+        <p>Upload an image for early breast cancer detection analysis.</p>
+        <input type="file" id="imageUpload" accept="image/*">
+        <label for="imageUpload">Choose an Image</label>
+        <button onclick="uploadImage()">Analyze Image</button>
+        <div class="message benign">BENIGN: It’s not cancerous, but proactive care now ensures a healthier, safer future.</div>
+        <div class="message malignant">MALIGNANT: You are stronger than this journey, early care and support make all the difference.</div>
+        <div class="message normal">NORMAL: All clear! Stay mindful and keep prioritizing your health!</div>
+        <div id="result"></div>
+    </div>
+</body>
+</html>

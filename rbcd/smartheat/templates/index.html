@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curatherm</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff69b4, #8b008b, #483d8b);
+            background-size: 400% 400%;
+            color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        /* Container */
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* Navigation */
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+        }
+
+        header nav ul li a {
+            color: #f1f1f1;
+            font-size: 1.2rem;
+            text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            background-color: #8b008b;
+            color: #ff69b4;
+        }
+
+        /* Content */
+        .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: #ff69b4;
+        }
+
+        .content p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            color: #e6e6fa;
+        }
+
+        /* Button */
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #ff69b4;
+            color: #f1f1f1;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button:hover {
+            background-color: #8b008b;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Section -->
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'analysis' %}">Early Detect</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Content Section -->
+        <div class="content">
+            <h1>CURATHERM</h1>
+            <p>We believe that early detection is the path to prevention. Curatherm is an innovative, non-invasive technique that helps recognize early signs of breast cancer, ensuring better chances of treatment.</p>
+            <a href="{% url 'analysis' %}" class="button">Get Started</a>
+        </div>
+    </div>
+</body>
+</html>
